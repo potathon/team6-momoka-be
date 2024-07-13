@@ -4,6 +4,7 @@ const app = express();
 const port = 4000;
 const cors = require("cors");
 const restaurantRouter = require("./routes/restaurantRouter.js");
+const fetch = require('node-fetch');
 
 app.use(
   cors({
