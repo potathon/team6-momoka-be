@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = 3000;
+const restaurantRouter = require('./routes/restaurantRouter.js');
 
 let restaurantData = []; // 데이터를 저장할 전역 변수
 
@@ -41,10 +42,13 @@ const fetchData = async () => {
 // 서버 시작 시 데이터 가져오기
 fetchData();
 
-// 착한 가게 데이터 엔드포인트
-app.get('/api', (req, res) => {
-  res.json(restaurantData);
+app.use((req, res, next) => {
+  req.restaurantData = restaurantData;
+  next();
 });
+
+// 착한 가게 데이터 엔드포인트
+app.use('/api', restaurantRouter);
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
