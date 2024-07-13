@@ -2,7 +2,15 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const port = 4000;
+const cors = require("cors");
 const restaurantRouter = require("./routes/restaurantRouter.js");
+
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+    method: ["GET", "POST", "PATCH", "DELETE"],
+  })
+);
 
 let restaurantData = []; // 데이터를 저장할 전역 변수
 
@@ -30,9 +38,15 @@ const fetchData = async () => {
     const apiResponseJson = await response.json();
 
     // '업종' 필드가 '음식점'인 항목만 필터링
-    restaurantData = apiResponseJson.data.filter(
-      (store) => store.업종 === "음식점"
-    );
+    restaurantData = apiResponseJson.data
+      .filter((store) => store.업종 === "음식점")
+      .map((store) => ({
+        name: store?.업소명,
+        tel: store?.연락처,
+        menu: store?.품목,
+        addr: store?.주소,
+        info: store?.영업정보,
+      }));
     console.log("데이터가 성공적으로 로드되었습니다.");
   } catch (error) {
     console.error("Error fetching data:", error);
