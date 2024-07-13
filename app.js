@@ -8,8 +8,10 @@ const fetch = require('node-fetch');
 
 app.use(
   cors({
-    origin:
+    origin: [
       "http://ec2-52-79-127-33.ap-northeast-2.compute.amazonaws.com:3000/",
+      "http://localhost:3001",
+    ],
     method: ["GET", "POST", "PATCH", "DELETE"],
   })
 );
