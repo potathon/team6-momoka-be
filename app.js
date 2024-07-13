@@ -12,7 +12,7 @@ app.use(
       "http://ec2-52-79-127-33.ap-northeast-2.compute.amazonaws.com:3000",
       "http://ec2-52-79-177-10.ap-northeast-2.compute.amazonaws.com:3000",
       "http://localhost:3001",
-      "http://www.momoka.kro.kr:3000",
+      "http://momoka.kro.kr:3000",
     ],
     method: ["GET", "POST", "PATCH", "DELETE"],
   })
